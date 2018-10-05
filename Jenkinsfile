@@ -7,8 +7,20 @@ pipeline {
       }
     }
     stage('Test') {
-      steps {
-        sh 'echo "Testing..."'
+      parallel {
+        stage('Test') {
+          steps {
+            sh '''echo "Testing..."
+echo "Testing1..."'''
+            sh 'sleep 10'
+          }
+        }
+        stage('Test2') {
+          steps {
+            sh 'echo "TestingA..."'
+            sh 'sleep 20'
+          }
+        }
       }
     }
     stage('Deploy') {
